@@ -2,6 +2,8 @@
 
 Construí en **Databricks (PySpark y Delta Lake)** un pipeline que audita la calidad de **17,623 órdenes de compra reales** de los Catálogos Electrónicos de PERÚ COMPRAS (periodos 2026-08 a 2026-10), publicadas en la Plataforma Nacional de Datos Abiertos del Perú.
 
+El código completo, con sus resultados, está en el notebook [`Auditoria_Calidad_Datos_Medallion.ipynb`](Auditoria_Calidad_Datos_Medallion.ipynb).
+
 ## Resultado en una línea
 Audité las 17,623 órdenes con 4 reglas de calidad y **no encontré incumplimientos**. Para comprobar que mi motor de reglas funciona, inyecté 759 anomalías controladas y **detectó el 100%**.
 
@@ -32,19 +34,4 @@ Para validar el motor, modifiqué registros reales de forma determinística (ord
 
 | Dato | Valor |
 |---|---|
-| Anomalías esperadas (por conteo) | 759 |
-| Anomalías detectadas por el motor | 759 |
-| Detección | 100% |
-
-Guardé los resultados de la prueba en tablas separadas (`*_test`) para no mezclarlos con los datos reales. El detalle por regla está en `gold_scorecard_prueba_negativa`.
-
-## Limitaciones
-* Mis reglas validan formato y coherencia interna. No verifican el dígito verificador del RUC ni comparan los datos con otra fuente.
-* Que la fuente salga limpia significa que cumple estas 4 reglas, no que esté libre de cualquier error.
-* No probé la regla de duplicados con errores inyectados. En los datos reales no había duplicados.
-* La carga es completa (`overwrite`), no incremental.
-
-## Tecnologías
-* **Plataforma y procesamiento:** Databricks (Free Edition), PySpark, Delta Lake, Unity Catalog.
-* **Enfoque:** arquitectura Medallion, Data Quality Gate, Negative Testing, DAMA-DMBOK2.
-* **Fuente de datos:** Plataforma Nacional de Datos Abiertos del Perú, Central de Compras Públicas (PERÚ COMPRAS).
+|
