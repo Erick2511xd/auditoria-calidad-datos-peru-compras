@@ -18,6 +18,8 @@ Audité las 17,623 órdenes con 4 reglas de calidad y **no encontré incumplimie
 4. **Gold:** generé un resumen de la corrida real, un scorecard de anomalías por regla y un scorecard de la prueba negativa.
 5. **Gobierno en Unity Catalog:** documenté las tablas y columnas con `COMMENT ON TABLE` y `ALTER COLUMN`, y marqué las tablas de prueba como tales.
 
+![Metadatos en Unity Catalog](unity_catalog_metadatos.png)
+
 ## Resultados
 
 ### Corrida real (datos sin modificar)
@@ -47,6 +49,8 @@ Detalle por regla (sale de `gold_scorecard_prueba_negativa`):
 | Fecha inconsistente | 220 |
 
 Algunos registros incumplen más de una regla a la vez, por eso la suma (843) es mayor que los 759 registros únicos.
+
+![Resultado de la prueba negativa](resultado_prueba_negativa.png)
 
 Guardé los resultados de la prueba en tablas separadas (`*_test`) para no mezclarlos con los datos reales.
 
