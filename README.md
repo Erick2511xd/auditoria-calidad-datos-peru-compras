@@ -34,4 +34,33 @@ Para validar el motor, modifiqué registros reales de forma determinística (ord
 
 | Dato | Valor |
 |---|---|
-|
+| Anomalías esperadas (por conteo) | 759 |
+| Anomalías detectadas por el motor | 759 |
+| Detección | 100% |
+
+Detalle por regla (sale de `gold_scorecard_prueba_negativa`):
+
+| Regla | Registros detectados |
+|---|---|
+| RUC de proveedor inválido | 352 |
+| Inconsistencia financiera | 271 |
+| Fecha inconsistente | 220 |
+
+Algunos registros incumplen más de una regla a la vez, por eso la suma (843) es mayor que los 759 registros únicos.
+
+Guardé los resultados de la prueba en tablas separadas (`*_test`) para no mezclarlos con los datos reales.
+
+## Limitaciones
+* Mis reglas validan formato y coherencia interna. No verifican el dígito verificador del RUC ni comparan los datos con otra fuente.
+* Que la fuente salga limpia significa que cumple estas 4 reglas, no que esté libre de cualquier error.
+* No probé la regla de duplicados con errores inyectados. En los datos reales no había duplicados.
+* La carga es completa (`overwrite`), no incremental.
+
+## Cómo reproducirlo
+1. Descargué los archivos mensuales de órdenes de compra desde la Plataforma Nacional de Datos Abiertos y los subí a un Volume de Unity Catalog (`/Volumes/workspace/default/peru_compras/`).
+2. Importé el notebook en Databricks y lo ejecuté de arriba hacia abajo.
+
+## Tecnologías
+* **Plataforma y procesamiento:** Databricks (Free Edition), PySpark, Delta Lake, Unity Catalog.
+* **Enfoque:** arquitectura Medallion, Data Quality Gate, Negative Testing, DAMA-DMBOK2.
+* **Fuente de datos:** Plataforma Nacional de Datos Abiertos del Perú, Central de Compras Públicas (PERÚ COMPRAS).
